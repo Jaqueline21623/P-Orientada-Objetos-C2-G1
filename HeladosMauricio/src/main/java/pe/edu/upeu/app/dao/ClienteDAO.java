@@ -40,14 +40,17 @@ public class ClienteDAO implements ClienteDaoI {
     public int create(ClienteTO d) {
         int rsId = 0;
         String[] returns = {"dniruc"};
-        String sql = "INSERT INTO cliente(dniruc, nombres, tipo) "
+        String sql = "INSERT INTO cliente(dniruc, celular, nombres, tipo, ciudad, provincia) "
                 + "VALUES(?,?,?)";
         int i = 0;
         try {
             ps = connection.prepareStatement(sql, returns);
             ps.setString(++i, d.getDniruc());
+            ps.setString(++i, d.getCelular());
             ps.setString(++i, d.getNombres());
             ps.setString(++i, d.getTipo());
+            ps.setString(++i, d.getCiudad());
+            ps.setString(++i, d.getProvincia());
             rsId = ps.executeUpdate();// 0 no o 1 si commit
             try ( ResultSet rs = ps.getGeneratedKeys()) {
                 if (rs.next()) {
@@ -69,13 +72,19 @@ public class ClienteDAO implements ClienteDaoI {
         String sql = "UPDATE cliente SET "
                 + "nombres=?, "
                 + "tipo=? "
-                + "WHERE dniruc=?";
+                + "WHERE dniruc=?"
+                + "celular=?"
+                + "ciudad=? "
+                + "provincia=? ";
         int i = 0;
         try {
             ps = connection.prepareStatement(sql);
+            ps.setString(++i, d.getDniruc());
+            ps.setString(++i, d.getCelular());
             ps.setString(++i, d.getNombres());
             ps.setString(++i, d.getTipo());
-            ps.setString(++i, d.getDniruc());
+            ps.setString(++i, d.getCiudad());
+            ps.setString(++i, d.getProvincia());
             comit = ps.executeUpdate();
         } catch (SQLException ex) {
             log.log(Level.SEVERE, "update", ex);
@@ -118,9 +127,11 @@ public class ClienteDAO implements ClienteDaoI {
             while (rs.next()) {
                 ClienteTO cli = new ClienteTO();
                 cli.setDniruc(rs.getString("dniruc"));
+                cli.setCelular(rs.getString("celular"));
                 cli.setNombres(rs.getString("nombres"));
                 cli.setTipo(rs.getString("tipo"));
-                listarclientes.add(cli);
+                cli.setCiudad(rs.getString("ciudad"));
+                cli.setProvincia(rs.getString("provincia"));
             }
         } catch (SQLException e) {
             System.out.println(e.toString());
@@ -139,8 +150,11 @@ public class ClienteDAO implements ClienteDaoI {
             rs = ps.executeQuery();
             if (rs.next()) {
                 cliente.setDniruc(rs.getString("dniruc"));
+                cliente.setCelular(rs.getString("celular"));
                 cliente.setNombres(rs.getString("nombres"));
                 cliente.setTipo(rs.getString("tipo"));
+                cliente.setCiudad(rs.getString("ciudad"));
+                cliente.setProvincia(rs.getString("provincia"));
             }
         } catch (SQLException e) {
             System.out.println(e.toString());

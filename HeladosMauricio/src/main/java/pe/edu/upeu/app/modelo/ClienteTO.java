@@ -13,6 +13,6 @@ import lombok.Data;
 
 @Data
 public class ClienteTO {
-    public String dniruc, nombres, tipo;
+    public String dniruc, celular, nombres, tipo, ciudad, provincia;
 
 }

@@ -21,7 +21,7 @@ public class FondoPanel extends JPanel{
     
     @Override
     public void paint(Graphics g){
-        imageX=new ImageIcon(obj.getFile("Imagen1.png")).getImage();
+        imageX=new ImageIcon(obj.getFile("heladitos.png")).getImage();
         
         setOpaque(false);
         g.setColor(getBackground());

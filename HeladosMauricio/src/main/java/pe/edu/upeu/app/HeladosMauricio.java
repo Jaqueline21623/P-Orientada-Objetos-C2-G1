@@ -23,7 +23,8 @@ public class HeladosMauricio {
         new Login().setVisible(true);
         ClienteDaoI dao=new ClienteDAO();
         for (ClienteTO listarCliente : dao.listarClientes()) {
-            System.out.println(""+listarCliente.getDniruc()+"\t"+listarCliente.nombres + listarCliente.tipo);
+            System.out.println(""+listarCliente.getDniruc()+"\t"+listarCliente.nombres + 
+                    listarCliente.tipo + listarCliente.celular + listarCliente.ciudad + listarCliente.provincia );
         }
             
 
