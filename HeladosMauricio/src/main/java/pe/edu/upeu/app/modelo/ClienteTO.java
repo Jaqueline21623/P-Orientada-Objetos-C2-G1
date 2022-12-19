@@ -10,9 +10,7 @@ import lombok.Data;
  *
  * @author DELL
  */
-
 @Data
 public class ClienteTO {
-    public String dniruc, celular, nombres, tipo, ciudad, provincia;
-
+    public String dniruc, nombresrs, tipo;
 }

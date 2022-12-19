@@ -26,6 +26,7 @@ public class GUIMain extends JFrame {
 
     JMenuBar menuBar;
     JMenu menu1;
+    JMenuItem jmI1;
     JMenuItem jmI2;
     JTabbedPane jtpane;
     JPanel jp;
@@ -37,17 +38,23 @@ public class GUIMain extends JFrame {
         this.setSize(new Dimension(screenSize.width, (screenSize.height) - 36));
         menuBar = new JMenuBar();
         menu1 = new JMenu("Archivo");
-        jmI2 = new JMenuItem("Abrir");
+        jmI1 = new JMenuItem("Abrir");
+        jmI2 = new JMenuItem("Adm. Cliente");
         menuBar.add(menu1);
+        menu1.add(jmI1);
         menu1.add(jmI2);
         menu1 = new JMenu("Ver");
         menuBar.add(menu1);
         this.add(menuBar);
+        jtpane = new JTabbedPane();
         MenuItemListener menuItemListener = new MenuItemListener();
+        jmI1.addActionListener(menuItemListener);
         jmI2.addActionListener(menuItemListener);
+        
         this.getContentPane().add(BorderLayout.NORTH, menuBar);
-//this.getContentPane().add(BorderLayout.CENTER, jtpane);
+        //this.getContentPane().add(BorderLayout.CENTER, jtpane);
         this.setVisible(true);
+
     }
 
     class MenuItemListener implements ActionListener {
@@ -56,12 +63,13 @@ public class GUIMain extends JFrame {
         public void actionPerformed(ActionEvent e) {
             System.out.println("pasa por aqui");
             Container contai = GUIMain.this.getContentPane();
-            if (e.getSource() == jmI2) {
-                jtpane = new JTabbedPane();
+              jtpane.removeAll();
+            if (e.getSource() == jmI1) {
+              
                 jp = new JPanel();
                 jtpane.add("Prueba", jp);
                 jp = new JPanel();
-                jtpane.add("Prueba 2", jp);
+                jtpane.add("Preuba 2", jp);
                 JPanel pp = new JPanel();
                 pp.setPreferredSize(new Dimension(2000, 1000));
                 scrollPane = new JScrollPane(pp);
@@ -82,18 +90,27 @@ public class GUIMain extends JFrame {
                 contai.repaint();
             }
             if (e.getSource() == jmI2) {
-                System.out.println("Holas");
-                jtpane.removeAll();
+                
                 MainCliente mc = new MainCliente();
-                jtpane.add("Prueba", mc);
-                //jtpane.add("dd", new JPanel());
+                //jtpane.add("Cliente", mc);
+                scrollPane = new JScrollPane(mc);
+                scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+                scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+                jtpane.add("Adm. Cliente",scrollPane);
+                
+                MainVentas mv = new MainVentas();
+                //jtpane.add("Cliente", mc);
+                scrollPane = new JScrollPane(mv);
+                scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+                scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+                jtpane.add("G. Ventas",scrollPane);
+                                
                 contai.add(BorderLayout.CENTER, jtpane);
-                //contai.revalidate();
                 contai.invalidate();
                 contai.validate();
-                //contai.repaint();}
-                //contai.remove(jtpane);
+                contai.repaint();
             }
         }
     }
+
 }

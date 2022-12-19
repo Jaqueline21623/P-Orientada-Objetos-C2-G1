@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
-import pe.edu.upeu.app.dao.conx.Conn;
+import pe.com.syscenterlife.autocomp.ModeloDataAutocomplet;
+import pe.edu.upeu.app.dao.conx.ConnS;
 import pe.edu.upeu.app.modelo.ClienteTO;
 import pe.edu.upeu.app.util.ErrorLogger;
 
@@ -21,17 +22,17 @@ import pe.edu.upeu.app.util.ErrorLogger;
  *
  * @author DELL
  */
-public class ClienteDAO implements ClienteDaoI {
+public class ClienteDao implements ClienteDaoI {
 
     Statement stmt = null;
     Vector columnNames;
     Vector visitdata;
-    Connection connection = Conn.connectSQLite();
+    Connection connection = ConnS.getInstance().getConnection();
     static PreparedStatement ps;
-    static ErrorLogger log = new ErrorLogger(ClienteDAO.class.getName());
+    static ErrorLogger log = new ErrorLogger(ClienteDao.class.getName());
     ResultSet rs = null;
 
-    public ClienteDAO() {
+    public ClienteDao() {
         columnNames = new Vector();
         visitdata = new Vector();
     }
@@ -40,17 +41,14 @@ public class ClienteDAO implements ClienteDaoI {
     public int create(ClienteTO d) {
         int rsId = 0;
         String[] returns = {"dniruc"};
-        String sql = "INSERT INTO cliente(dniruc, celular, nombres, tipo, ciudad, provincia) "
+        String sql = "INSERT INTO cliente(dniruc, nombrers, tipo) "
                 + "VALUES(?,?,?)";
         int i = 0;
         try {
             ps = connection.prepareStatement(sql, returns);
             ps.setString(++i, d.getDniruc());
-            ps.setString(++i, d.getCelular());
-            ps.setString(++i, d.getNombres());
+            ps.setString(++i, d.getNombresrs());
             ps.setString(++i, d.getTipo());
-            ps.setString(++i, d.getCiudad());
-            ps.setString(++i, d.getProvincia());
             rsId = ps.executeUpdate();// 0 no o 1 si commit
             try ( ResultSet rs = ps.getGeneratedKeys()) {
                 if (rs.next()) {
@@ -70,21 +68,15 @@ public class ClienteDAO implements ClienteDaoI {
         System.out.println("actualizar d.getDniruc: " + d.getDniruc());
         int comit = 0;
         String sql = "UPDATE cliente SET "
-                + "nombres=?, "
+                + "nombrers=?, "
                 + "tipo=? "
-                + "WHERE dniruc=?"
-                + "celular=?"
-                + "ciudad=? "
-                + "provincia=? ";
+                + "WHERE dniruc=?";
         int i = 0;
         try {
             ps = connection.prepareStatement(sql);
-            ps.setString(++i, d.getDniruc());
-            ps.setString(++i, d.getCelular());
-            ps.setString(++i, d.getNombres());
+            ps.setString(++i, d.getNombresrs());
             ps.setString(++i, d.getTipo());
-            ps.setString(++i, d.getCiudad());
-            ps.setString(++i, d.getProvincia());
+            ps.setString(++i, d.getDniruc());
             comit = ps.executeUpdate();
         } catch (SQLException ex) {
             log.log(Level.SEVERE, "update", ex);
@@ -117,21 +109,19 @@ public class ClienteDAO implements ClienteDaoI {
     }
 
     @Override
-    public List<ClienteTO> listarClientes() {
+    public List listarClientes() {
         List<ClienteTO> listarclientes = new ArrayList();
-        String sql = "SELECT * FROM cliente ";
+        String sql = "SELECT * FROM cliente";
         try {
-            connection = new Conn().connectSQLite();
+            //connection = new Conn().connectSQLite();
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
                 ClienteTO cli = new ClienteTO();
                 cli.setDniruc(rs.getString("dniruc"));
-                cli.setCelular(rs.getString("celular"));
-                cli.setNombres(rs.getString("nombres"));
+                cli.setNombresrs(rs.getString("nombrers"));
                 cli.setTipo(rs.getString("tipo"));
-                cli.setCiudad(rs.getString("ciudad"));
-                cli.setProvincia(rs.getString("provincia"));
+                listarclientes.add(cli);
             }
         } catch (SQLException e) {
             System.out.println(e.toString());
@@ -144,22 +134,41 @@ public class ClienteDAO implements ClienteDaoI {
         ClienteTO cliente = new ClienteTO();
         String sql = "SELECT * FROM cliente WHERE dniruc = ?";
         try {
-            connection = new Conn().connectSQLite();
+            //connection = new Conn().connectSQLite();
             ps = connection.prepareStatement(sql);
             ps.setString(1, dni);
             rs = ps.executeQuery();
             if (rs.next()) {
                 cliente.setDniruc(rs.getString("dniruc"));
-                cliente.setCelular(rs.getString("celular"));
-                cliente.setNombres(rs.getString("nombres"));
+                cliente.setNombresrs(rs.getString("nombrers"));
                 cliente.setTipo(rs.getString("tipo"));
-                cliente.setCiudad(rs.getString("ciudad"));
-                cliente.setProvincia(rs.getString("provincia"));
             }
         } catch (SQLException e) {
             System.out.println(e.toString());
         }
         return cliente;
+    }
+
+    @Override
+    public List<ModeloDataAutocomplet> listAutoComplet(String filter) {
+        List<ModeloDataAutocomplet> listarclientes = new ArrayList();
+        String sql = "SELECT * FROM cliente WHERE nombrers like ?";
+        try {
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, filter + "%");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                ModeloDataAutocomplet data = new ModeloDataAutocomplet();
+                ModeloDataAutocomplet.TIPE_DISPLAY = "ID";
+                data.setIdx(rs.getString("dniruc"));
+                data.setNombreDysplay(rs.getString("nombrers"));
+                data.setOtherData(rs.getString("tipo"));
+                listarclientes.add(data);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        }
+        return listarclientes;
     }
 
     @Override

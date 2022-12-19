@@ -25,7 +25,28 @@
             <artifactId>lombok</artifactId>
             <version>1.18.24</version>
             <scope>provided</scope>
+        </dependency>   
+          
+        <dependency>
+            <groupId>com.github.davidmp</groupId>
+            <artifactId>SysSwingDmp</artifactId>
+            <version>v1.8</version>
+        </dependency>   
+        
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.30</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10</version>
+        </dependency>
+             
+              
     </dependencies>
     
     <repositories>
@@ -67,12 +88,14 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>pe.edu.upeu.app.HeladosMauricio</mainClass>
+                            <mainClass>pe.edu.upeu.app.SysVentasGUIG1</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
             </plugin>
-        </plugins>
-    </build>
 
+        </plugins>
+    </build>    
+    
+    
 </project>

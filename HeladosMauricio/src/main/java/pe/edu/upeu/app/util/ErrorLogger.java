@@ -6,7 +6,6 @@ package pe.edu.upeu.app.util;
 
 import java.io.File;
 import java.io.IOException;
-
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DateFormat;
@@ -18,6 +17,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+/**
+ *
+ * @author DELL
+ */
 public class ErrorLogger {
 
     protected static final Logger logger = Logger.getLogger("MYLOG");

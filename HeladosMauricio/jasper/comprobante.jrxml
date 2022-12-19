@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bb3be5e5-340a-4f63-999f-e8597fa3279f">
+	<property name="ireport.zoom" value="1.6105100000000012"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idventa" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select * from venta where id_venta=$P{idventa}]]>
+	</queryString>
+	<field name="id_venta" class="java.lang.Object"/>
+	<field name="preciobase" class="java.lang.Object"/>
+	<field name="igv" class="java.lang.Object"/>
+	<field name="preciototal" class="java.lang.Object"/>
+	<field name="dniruc" class="java.lang.Object"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="104" splitType="Stretch">
+			<staticText>
+				<reportElement x="194" y="21" width="176" height="35" uuid="979e2407-902e-43e4-a40d-0ef6abbe6033"/>
+				<textElement>
+					<font fontName="Agency FB" size="24"/>
+				</textElement>
+				<text><![CDATA[Comprobante de Venta]]></text>
+			</staticText>
+			<image>
+				<reportElement x="59" y="6" width="57" height="65" uuid="62ebb5a7-7af1-4cb6-8b3a-1abb68e64d0e"/>
+				<imageExpression><![CDATA["D:\\POO-2022-G1-main\\SysVentasGUIG1\\jasper\\logo.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="603" y="71" width="627" height="0" uuid="fe4c1d34-8eb0-4195-bc92-a8bc06c7f6f5"/>
+				<imageExpression><![CDATA["D:\\POO-2022-G1-main\\SysVentasGUIG1\\jasper\\logo_1.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="449" y="6" width="106" height="78" uuid="f218ab49-a6d6-49b0-97ea-b4cfbf880b84"/>
+				<imageExpression><![CDATA["D:\\POO-2022-G1-main\\SysVentasGUIG1\\jasper\\logo_1.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="31" y="0" width="100" height="20" uuid="4be01ba4-e681-4ceb-b00d-9c2bd5b6cca5"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Dni/Ruc:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="141" y="0" width="100" height="20" uuid="1aa73818-81be-47a0-98b7-1f87fd0b40f1"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Precio Base:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="252" y="0" width="100" height="20" uuid="0a549fa2-c4ec-4ba4-a527-69ef707f89cf"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Precio Total:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="2" width="64" height="20" uuid="f9905e83-698a-458b-b186-d6f8cfc0ad35"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[IGV:]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="37" splitType="Stretch">
+			<textField>
+				<reportElement x="31" y="10" width="100" height="20" uuid="4f0255bd-454d-4c15-bca5-1942a02984f2"/>
+				<textFieldExpression><![CDATA[""+$F{dniruc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="141" y="10" width="100" height="20" uuid="6a220a66-e7e7-444b-98ae-bcc93358b75e"/>
+				<textFieldExpression><![CDATA[""+$F{preciobase}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="252" y="10" width="100" height="20" uuid="646e1586-c34c-48aa-ad04-8d47d46e19aa"/>
+				<textFieldExpression><![CDATA[""+$F{preciototal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="10" width="64" height="20" uuid="a48d00f2-82a4-489e-a991-fe8e4f3ebb8f"/>
+				<textFieldExpression><![CDATA[""+$F{igv}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
