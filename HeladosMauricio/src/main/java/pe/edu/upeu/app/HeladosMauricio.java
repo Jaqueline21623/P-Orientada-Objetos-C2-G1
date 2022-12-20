@@ -5,6 +5,9 @@
 
 package pe.edu.upeu.app;
 
+import pe.edu.upeu.app.gui.Login;
+import pe.edu.upeu.app.gui.ReporteVentas;
+
 /**
  *
  * @author DELL
@@ -13,5 +16,7 @@ public class HeladosMauricio {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
+        new Login().setVisible(true);
+        new ReporteVentas().setVisible(true);
     }
 }

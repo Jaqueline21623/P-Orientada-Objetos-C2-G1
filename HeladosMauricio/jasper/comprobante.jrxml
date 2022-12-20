@@ -27,7 +27,7 @@
 				<text><![CDATA[Comprobante de Venta]]></text>
 			</staticText>
 			<image>
-				<reportElement x="59" y="6" width="57" height="65" uuid="62ebb5a7-7af1-4cb6-8b3a-1abb68e64d0e"/>
+				<reportElement x="55" y="6" width="76" height="78" uuid="62ebb5a7-7af1-4cb6-8b3a-1abb68e64d0e"/>
 				<imageExpression><![CDATA["D:\\POO-2022-G1-main\\SysVentasGUIG1\\jasper\\logo.png"]]></imageExpression>
 			</image>
 			<image>
@@ -35,7 +35,7 @@
 				<imageExpression><![CDATA["D:\\POO-2022-G1-main\\SysVentasGUIG1\\jasper\\logo_1.png"]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="449" y="6" width="106" height="78" uuid="f218ab49-a6d6-49b0-97ea-b4cfbf880b84"/>
+				<reportElement x="401" y="6" width="115" height="88" uuid="f218ab49-a6d6-49b0-97ea-b4cfbf880b84"/>
 				<imageExpression><![CDATA["D:\\POO-2022-G1-main\\SysVentasGUIG1\\jasper\\logo_1.png"]]></imageExpression>
 			</image>
 		</band>
